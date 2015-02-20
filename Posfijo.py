@@ -1,17 +1,21 @@
-N=20
-#pila=[0 for i in range(N)]
+abcd=list('ABCDEFGHIJKLMNOPQRSTUVXYZ')
+udt=list('0123456789')
+N=50
 pila=[]
+EP=[]
 
 global tope
 tope=-1
 
 def llena():
     if(tope==(N-1)):
+        print 'STACKOVERFLOW'
         return True
     return False
 
 def vacia():
     if(tope==-1):
+        'STACKUNDERFLOW'
         return True
     return False
 
@@ -19,7 +23,6 @@ def push(dato):
     if(llena()!=True):
         global tope
         tope=tope+1
-        #pila[tope]=dato
         pila.insert(tope,dato)
 
 def pop():
@@ -32,29 +35,6 @@ def pop():
     else:
         return -9999
 
-def operando(i, EI):
-    abcd='abcdefghijklmnopqrstuvxyz'
-    abcd=list(abcd)
-    for j in range(len(abcd)):
-        if(EI[i]==abcd[j]):
-            return True
-    return False
-
-def parentesis(i, EI):
-    if(EI[i]!=')'):
-        return True
-    else:
-        return False
-    
-#Ope    PriInf  PriPila
-#^      4       3
-#*      2       2
-#/      2       2
-#+      1       1
-#-      1       1
-#(      5       0
-#)      NONE    NONE
-    
 def infijo(i, EI):
     if(EI[i]=='^'):
         prioridadop=4
@@ -96,34 +76,44 @@ def pripila(pila):
         return prioridadpi
 
 
-#eistring=raw_input('Ingrese Operacion sin espacios: ')
-#EI=list(eistring.lower())
-EI=['a','*','b','/','(','a','+','c',')']
-EP=[]
+eistring=raw_input('Ingrese Operacion sin espacios: ')
+EI=list(eistring.upper())
+
 for i in range(len(EI)):
-    print 'PILA'
-    print pila
-    print 'EI'
-    print EI
-    print 'EP'
-    print EP
-    print '------------------'
-    if(operando(i, EI)==True):
+    if(EI[i] in abcd or EI[i] in udt):      #EI es operando
         EP.append(EI[i])
-    elif(parentesis(i, EI)==True):
-        if (tope==-1):
+    elif(EI[i]!=')'):                       #EI es diferente a ')'
+        if (tope==-1):                      #Pila no esta vacia
             push(EI[i])
-        elif(tope>=0):
-            if(infijo(i,EI)>pripila(pila)):
+        else:
+            if(infijo(i,EI)<=pripila(pila)):#operador de EI es <= a operador de pila
+                EP.append(pop())                
                 push(EI[i])
-                print 'lol'
-            
-            
-            
-           
+            elif(infijo(i,EI)>pripila(pila)):#operador de EI es > a operador de pila
+                push(EI[i])
+    elif(EI[i]==')'):                       #EI es igual a ')'
+        while (pila[tope]!='('):            #Pila es diferente a '('
+            EP.append(pop())
+        if(pila[tope]=='('):                #Pila es igual a '('
+            pop()
+        elif(tope!=-1):                     #Pila no esta vacia
+            EP.append(pop())
+
+while (tope>-1):                
+    EP.append(pop())
+print EP
+        
 
 
 
 
-       
+
+
+
+
+
+
+
+
+
 
