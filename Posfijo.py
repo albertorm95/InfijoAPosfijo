@@ -32,22 +32,37 @@ def pop():
     else:
         return -9999
 
-eistring=raw_input('Ingrese Operacion sin espacios: ')
-EI=list(eistring)
+def operando(i, EI):
+    abcd='abcdefghijklmnopqrstuvxyz'
+    abcd=list(abcd)
+    for j in range(len(abcd)):
+        if(EI[i]==abcd[j]):
+            return True
+    return False
+
+def operador(i, EI):
+    if(EI[i]!=')'):
+        return True
+
+#eistring=raw_input('Ingrese Operacion sin espacios: ')
+#EI=list(eistring.lower())
+EI=['a','+']
+EP=[]
+for i in range(2):
+    if(operando(i, EI)==True):
+        EP.append(EI[i])
+    elif(operador(i, EI)==True):
+        if (tope==-1):
+            push(EI[i])
+        #else:
+            
+            
+           
+
+print pila
 print EI
-EPOS=''
-while (EI!=EPOS):                       #while 1
-    if (EI[tope]=='('):                 #si 1
-        push(EI[tope])
-    else:                               #si no 1
-        if(EI[0]==')'):                 #si 2
-            while (pila[tope]!='('):    #while 2
-                EPOS=EPOS+pop()
-            pop()
-        else:                           #si no 2
-            if(EI[tope]=='+' or EI[tope]=='-' or EI[tope]=='*' or EI[tope]=='/' or EI[tope]=='^'):
-                EPOS=EPOS+EI[tope]
-            else:                       #si no 3
-                while (
+print EP
+
+
        
 
