@@ -3,8 +3,6 @@ udt=list('0123456789')
 N=50
 pila=[]
 EP=[]
-
-global tope
 tope=-1
 
 def llena():
@@ -101,8 +99,7 @@ for i in range(len(EI)):
 
 while (tope>-1):                
     EP.append(pop())
-print EP
-        
+print ''.join(EP)        
 
 
 
